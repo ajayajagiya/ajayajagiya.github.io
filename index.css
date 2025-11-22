@@ -1,0 +1,341 @@
+/* General Body & Typography */
+:root {
+    --background-color: #0a0a0a;
+    --text-color: #e0e0e0;
+    --primary-color: #ffffff;
+    --card-background: #1a1a1a;
+    --glass-background: rgba(20, 20, 30, 0.6);
+    --border-color: #2a2a2a;
+
+    /* Dynamic spilled-water shapes */
+    --blob-1: 63% 37% 54% 46% / 55% 48% 52% 45%;
+    --blob-2: 55% 45% 60% 40% / 52% 50% 48% 46%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    color: var(--primary-color);
+    font-weight: 700; /* Bolder for more impact */
+}
+
+p {
+    max-width: 70ch;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #b0b0b0;
+}
+
+/* Floating animation */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Top Navigation */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    padding: 1.5rem 2rem;
+    z-index: 1000;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0));
+}
+
+.nav-item {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-right: 2rem;
+    font-weight: 500;
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    position: absolute;
+    min-width: 280px; /* Wider for a more modern look */
+    z-index: 1;
+    padding: 0.5rem; /* Padding for the glass container */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+
+    /* Apply glassmorphism theme */
+    background: var(--glass-background);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Themed dropdown items */
+.dropdown-content a {
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px; /* Rounded corners for each item */
+    margin: 0.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content .project-title {
+    font-size: 1rem;
+    font-weight: 500; /* Slightly lighter weight for a cleaner look */
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+.dropdown-content .project-desc {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+/* Hover behavior */
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle highlight on hover */
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content { 
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Main Content Area */
+.content-container {
+    position: relative;
+    z-index: 1;
+}
+
+.project {
+    background-color: var(--card-background);
+    margin: 0 auto 5rem auto;
+    padding: 3rem;
+    max-width: 900px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+#project1 {
+    margin-bottom: 5rem;
+}
+
+.project.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project h2 {
+    margin-top: 0;
+    font-size: 2rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.project-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center; /* Center buttons */
+}
+
+.project-links a {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.project-links a:hover {
+    transform: translateY(-3px);
+    background-color: #f0f0f0; /* Slightly different color on hover */
+    color: var(--background-color);
+}
+
+/* Secondary button style */
+.project-links a:last-child {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+/* Project with background image */
+.project-with-bg {
+    position: relative;
+    color: white;
+    padding: 4rem 3rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 0;
+    overflow: hidden; /* Hide the parts of the background that move outside the container */
+    max-width: none;
+    transition: opacity 0.5s ease-out;
+}
+
+.project-with-bg .project-content {
+    position: relative;
+    z-index: 2;
+    background: var(--glass-background);
+    padding: 2.5rem 3rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    max-width: 700px;
+    text-align: left; /* Better for readability */
+}
+
+.project-with-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(25, 15, 40, 0.7); /* A subtle purple tint for a dreamy feel */
+    border-radius: 0;
+    box-shadow: inset 0 0 120px 80px var(--background-color);
+    opacity: var(--overlay-opacity, 0); /* Use CSS variable for opacity */
+    z-index: 1;
+}
+
+/* New pseudo-element for the background image and zoom effect */
+.project-with-bg::after {
+    content: '';
+    position: absolute; /* Position relative to the .project-with-bg container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150%; /* Make it taller than the container to allow for movement */
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Behind the overlay and content */
+    
+    /* Prepare for JS-driven transform and add a transition for smoothness */
+    transform: translateY(var(--bg-translate-y, 0)) scale(var(--bg-scale, 1)); /* Use CSS variables */
+    opacity: var(--bg-opacity, 0); /* Use CSS variable for opacity */
+    transition: transform 0.1s linear, opacity 0.1s linear; /* Smooth out changes */
+}
+
+/* Assign unique backgrounds to the new pseudo-element */
+#project1.project-with-bg::after {
+    background-image: url('https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=2078&auto=format&fit=crop');
+}
+
+#project2.project-with-bg::after {
+    background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2070&auto=format&fit=crop');
+}
+
+#project3.project-with-bg::after {
+    background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');
+}
+
+/* About Me Section */
+.about-section {
+    padding: 5rem 2rem;
+    background-color: #000;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 900px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: var(--card-background);
+    background-image: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop'); /* Placeholder image */
+    background-size: cover;
+    background-position: center;
+    border: 3px solid var(--primary-color);
+    flex-shrink: 0;
+}
+
+.about-text {
+    text-align: left;
+}
+
+.about-section h2 {
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.about-section p {
+    margin: 1rem auto;
+}
+
+.social-links {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    color: var(--text-color);
+    font-weight: 600;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.social-links a:hover {
+    background-color: var(--card-background);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}

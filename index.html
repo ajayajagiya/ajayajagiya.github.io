@@ -3,10 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlueTheLocalGuide</title>
-    <link rel="canonical" href="https://ajayajagiya.github.io/BlueTheLocalGuide/">
-    <meta http-equiv="refresh" content="0; url=https://ajayajagiya.github.io/BlueTheLocalGuide/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
+
+    <nav class="top-nav">
+        <div class="nav-item dropdown">
+            <a href="#projects" class="dropbtn">Projects</a>
+            <div class="dropdown-content">
+                <a href="#project1">
+                    <span class="project-title">🌐 Blue The Local Guide</span>
+                    <span class="project-desc">360° virtual tours for businesses.</span>
+                </a>
+                <a href="#project2">
+                    <span class="project-title">💻 TaskTracker</span>
+                    <span class="project-desc">Real-time employee productivity monitoring.</span>
+                </a>
+                <a href="#project3">
+                    <span class="project-title">☁️ Azure DevOps Manager</span>
+                    <span class="project-desc">Desktop client for managing Azure DevOps.</span>
+                </a>
+            </div>
+        </div>
+        <a href="#about" class="nav-item">About Me</a>
+    </nav>
+
+    <main class="content-container">
+
+        <!-- Project 1 -->
+        <section id="project1" class="project project-with-bg">
+            <div class="project-content">
+                <h2>Blue The Local Guide</h2>
+                <p>
+                    Blue The Local Guide creates Google-certified 360° virtual tours using Street View technology. 
+                    We help businesses enhance their online presence with immersive, high-resolution tours that 
+                    work on any device, boosting credibility and attracting new customers through Google Search 
+                    and Maps.
+                </p>
+                <div class="project-links">
+                    <a href="https://ajayajagiya.github.io/BlueTheLocalGuide/" target="_blank">Visit Website</a>
+                    <a href="https://ajayajagiya.github.io/BlueTheLocalGuide/#AboutUs" target="_blank">About Project</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 2 -->
+        <section id="project2" class="project project-with-bg">
+            <div class="project-content">
+                <h2>TaskTracker</h2>
+                <p>
+                    TaskTracker is a professional desktop application built with the .NET Framework, designed for 
+                    employers who need to monitor employee productivity and task progress in real time. It provides 
+                    a seamless and automated way to track user activity, capture screen images, and upload all data 
+                    to your own secure server, ensuring you always have a clear view of your team's work.
+                </p>
+                <div class="project-links">
+                    <a href="#" target="_blank">Visit Website</a>
+                    <a href="#" target="_blank">About Project</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 3 -->
+        <section id="project3" class="project project-with-bg">
+            <div class="project-content">
+                <h2>Azure DevOps Manager</h2>
+                <p>
+                    Using Azure DevOps REST APIs, this desktop application helps manage requirements, bugs, and tasks 
+                    with ease. It includes time tracking, the ability to start/close tasks, manage items under 
+                    requirements and bugs, and add new tasks efficiently.
+                </p>
+                <div class="project-links">
+                    <a href="#" target="_blank">Visit Website</a>
+                    <a href="#" target="_blank">About Project</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="about" class="about-section">
+        <div class="about-content">
+            <div class="profile-picture"></div>
+            <div class="about-text">
+                <h2>About Me</h2>
+                <p>
+                    I'm a passionate developer with experience in creating dynamic web applications and robust desktop solutions. My goal is to build software that is not only functional but also provides an engaging and seamless user experience.
+                </p>
+                <div class="social-links">
+                    <a href="#" title="GitHub">GH</a>
+                    <a href="#" title="LinkedIn">IN</a>
+                    <a href="#" title="Twitter">TW</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const allProjects = document.querySelectorAll('.project');
+
+            // Observer for fade-in/fade-out and slide-up animations
+            const projectObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        const rect = entry.boundingClientRect;
+                        if (rect.top < 0) {
+                            entry.target.classList.remove('visible');
+                        }
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            allProjects.forEach(p => {
+                projectObserver.observe(p);
+            });
+
+            // --- Scroll-driven background zoom effect ---
+            const bgProjects = document.querySelectorAll('.project-with-bg');
+
+            // Function to handle the zoom effect on scroll
+            const handleScrollZoom = () => {
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+
+                bgProjects.forEach(project => {
+                    const projectTop = project.offsetTop;
+                    const projectHeight = project.offsetHeight;
+                    const pseudoElement = project; // We will apply transform to the element itself
+
+                    // Check if the project is in the viewport
+                    if (scrollY + windowHeight > projectTop && scrollY < projectTop + projectHeight) {
+                        // --- Calculate scroll-based values ---
+
+                        // scrollProgress: 0 when top of section hits bottom of viewport, 1 when bottom of section hits top of viewport.
+                        const scrollProgress = (scrollY + windowHeight - projectTop) / (windowHeight + projectHeight);
+                        
+                        // parallaxOffset: How much the background should move. A negative value moves it up.
+                        // We'll move it from -20% to 0% of its height. The 0.4 factor controls the speed.
+                        const parallaxOffset = -20 + (scrollProgress * 20);
+
+                        // bgOpacity: Fades in and then out (0 -> 1 -> 0) using a parabolic curve.
+                        const bgOpacity = Math.max(0, 1 - 4 * Math.pow(scrollProgress - 0.5, 2));
+
+                        // overlayOpacity: Fades in as the section centers, creating focus.
+                        const overlayOpacity = Math.min(1, scrollProgress * 2);
+
+                        // scale: Subtle zoom from 1 to 1.05 for a less intense zoom.
+                        const scale = 1 + bgOpacity * 0.05;
+
+                        // --- Apply styles via CSS variables ---
+                        project.style.setProperty('--bg-translate-y', `${parallaxOffset}%`);
+                        project.style.setProperty('--bg-scale', scale);
+                        project.style.setProperty('--bg-opacity', bgOpacity);
+                        project.style.setProperty('--overlay-opacity', overlayOpacity);
+                    }
+                });
+            };
+
+            // Listen for scroll events
+            window.addEventListener('scroll', handleScrollZoom);
+        });
+    </script>
+
 </body>
 </html>
