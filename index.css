@@ -295,7 +295,7 @@ a:hover {
     height: 150px;
     border-radius: 50%;
     background-color: var(--card-background);
-    background-image: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop'); /* Placeholder image */
+    background-image: url('https://ajayajagiya.github.io/profilephoto.jpg'); /* Placeholder image */
     background-size: cover;
     background-position: center;
     border: 3px solid var(--primary-color);
