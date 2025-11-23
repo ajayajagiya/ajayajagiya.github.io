@@ -140,19 +140,18 @@ a:hover {
 
 .project {
     background-color: var(--card-background);
-    margin: 0 auto 5rem auto;
+    /* margin: 0 auto 5rem auto; */
     padding: 3rem;
     max-width: 900px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 #project1 {
-    margin-bottom: 5rem;
+    margin-bottom: 0px;
 }
 
 .project.visible {
@@ -202,7 +201,7 @@ a:hover {
 .project-with-bg {
     position: relative;
     color: white;
-    padding: 4rem 3rem;
+    /* padding: 4rem 3rem; */
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -237,7 +236,9 @@ a:hover {
     bottom: 0;
     background-color: rgba(25, 15, 40, 0.7); /* A subtle purple tint for a dreamy feel */
     border-radius: 0;
-    box-shadow: inset 0 0 120px 80px var(--background-color);
+    /* Create a symmetrical vignette effect for top and bottom */
+    box-shadow: inset 0 15vh 15vh -10vh var(--background-color), /* Bottom fade */
+                inset 0 -15vh 15vh -10vh var(--background-color); /* Top fade */
     opacity: var(--overlay-opacity, 0); /* Use CSS variable for opacity */
     z-index: 1;
 }
@@ -246,7 +247,7 @@ a:hover {
 .project-with-bg::after {
     content: '';
     position: absolute; /* Position relative to the .project-with-bg container */
-    top: 0;
+    top: -25%; /* Start the pseudo-element higher up */
     left: 0;
     width: 100%;
     height: 150%; /* Make it taller than the container to allow for movement */
@@ -255,22 +256,22 @@ a:hover {
     z-index: -1; /* Behind the overlay and content */
     
     /* Prepare for JS-driven transform and add a transition for smoothness */
-    transform: translateY(var(--bg-translate-y, 0)) scale(var(--bg-scale, 1)); /* Use CSS variables */
-    opacity: var(--bg-opacity, 0); /* Use CSS variable for opacity */
+    transform: translateY(var(--bg-translate-y, 0.1)) scale(var(--bg-scale, 1)); /* Use CSS variables */
+    opacity: var(--bg-opacity, 0.1); /* Use CSS variable for opacity */
     transition: transform 0.1s linear, opacity 0.1s linear; /* Smooth out changes */
 }
 
 /* Assign unique backgrounds to the new pseudo-element */
 #project1.project-with-bg::after {
-    background-image: url('https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=2078&auto=format&fit=crop');
+    background-image: url('https://ajayajagiya.github.io/bg2.avif');
 }
 
 #project2.project-with-bg::after {
-    background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2070&auto=format&fit=crop');
+    background-image: url('https://ajayajagiya.github.io/bg1.avif');
 }
 
 #project3.project-with-bg::after {
-    background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');
+    background-image: url('https://ajayajagiya.github.io/bg3.avif');
 }
 
 /* About Me Section */
@@ -338,4 +339,20 @@ a:hover {
     background-color: var(--card-background);
     border-color: var(--primary-color);
     color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .about-text {
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
 }
