@@ -30,6 +30,7 @@
                 </a>
             </div>
         </div>
+        <a href="#certificates" class="nav-item">Certificates</a>
         <a href="#about" class="nav-item">About Me</a>
     </nav>
 
@@ -87,13 +88,69 @@
 
     </main>
 
+    <section id="certificates">
+        <h2>Certificates</h2>
+        <div class="accordion-container">
+            <div class="accordion-item">
+                <button class="accordion-header">Google Prompting Essentials</button>
+                <div class="accordion-panel">
+                    <div class="accordion-content">
+                        <img src="./Coursera 5XAJFTMHU345.jpg" alt="Google Prompting Essentials" class="certificate-image">
+                        <div class="certificate-details">
+                            <p class="certificate-description">
+                                Through hands-on exercises and real-world examples, you’ll learn how to use AI to save time, uncover insights, tackle complex projects, and use AI responsibly. This self-paced program builds a library of reusable prompts and is applicable across industries.
+                            </p>
+                            <h3>Skills Learned:</h3>
+                            <ul class="skills-list">
+                                <li>Prompt Engineering</li>
+                                <li>Generative AI</li>
+                                <li>LLM Application</li>
+                                <li>Data Visualization</li>
+                                <li>Critical Thinking</li>
+                                <li>Complex Problem Solving</li>
+                                <li>Business Correspondence</li>
+                                <li>Ideation</li>
+                                <li>Report Writing</li>
+                                <li>Machine Learning</li>
+                                <li>Artificial Intelligence</li>
+                            </ul>
+                            <a href="https://coursera.org/share/59dfe696fbdc6249c072ab521e1278dd" class="certificate-link" target="_blank">View Credential</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header">Start Writing Prompts like a Pro</button>
+                <div class="accordion-panel">
+                    <div class="accordion-content">
+                        <img src="./Coursera JQ330JDJ42SU.jpg" alt="Start Writing Prompts like a Pro" class="certificate-image">
+                        <div class="certificate-details">
+                            <p class="certificate-description">
+                                This course, part of the Google Prompting Essentials Specialization, teaches a 5-step framework to craft, evaluate, and iterate on prompts across various AI tools and models to achieve desired results.
+                            </p>
+                            <h3>Skills Learned:</h3>
+                            <ul class="skills-list">
+                                <li>Prompt Engineering</li>
+                                <li>Prompt Patterns</li>
+                                <li>Responsible AI</li>
+                                <li>Multimodal Prompts</li>
+                            </ul>
+                            <a href="https://coursera.org/share/a5f67b9eef0e544b0389fcfaff0e3c42" class="certificate-link" target="_blank">View Credential</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <footer id="about" class="about-section">
         <div class="about-content">
             <div class="profile-picture"></div>
             <div class="about-text">
                 <h2>About Me</h2>
                 <p>
-                    As a results-driven <strong>Senior Software Engineer</strong> and <strong>Full-Stack Developer</strong> with over five years of experience, I specialize in designing and delivering high-performance, scalable, and <strong>enterprise-grade .NET applications</strong>. My expertise in <strong>cloud application development</strong> is centered on creating robust <strong>AWS solutions</strong>, utilizing services to build resilient and efficient systems.
+                    As a results-driven <strong>Senior Software Engineer</strong> and <strong>Full-Stack Developer</strong> with over five years of experience, I specialize in designing and delivering high-performance, scalable, and <strong>enterprise-grade .NET applications</strong>. My expertise in <strong>cloud application development</strong> is centered on creating robust <strong>Azure/AWS solutions</strong>, utilizing services to build resilient and efficient systems.
                 </p>
                 <p>
                     My technical skill set is founded on <strong>C#, ASP.NET, and advanced API design</strong>, complemented by deep knowledge of <strong>SQL Server</strong> for optimal data management. I am passionate about building sophisticated <strong>automation systems</strong> and have hands-on experience with <strong>RPA tools</strong> to streamline business processes. As a leader, I am committed to <strong>team mentoring</strong>, fostering growth and driving projects to successful completion while ensuring top-tier <strong>performance optimization</strong>.
@@ -172,6 +229,28 @@
 
             // Listen for scroll events
             window.addEventListener('scroll', handleScrollZoom);
+
+            // --- Accordion Functionality ---
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const currentlyActive = document.querySelector('.accordion-header.active');
+                    if (currentlyActive && currentlyActive !== header) {
+                        currentlyActive.classList.remove('active');
+                        currentlyActive.nextElementSibling.style.maxHeight = null;
+                    }
+
+                    header.classList.toggle('active');
+
+                    const panel = header.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+                    }
+                });
+            });
         });
     </script>
 

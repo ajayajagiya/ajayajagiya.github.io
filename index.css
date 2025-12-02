@@ -341,8 +341,141 @@ a:hover {
     color: var(--primary-color);
 }
 
+/* Certificates Section */
+#certificates {
+    padding: 5rem 2rem;
+    background-color: #000;
+    text-align: center;
+}
+
+#certificates h2 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+    display: inline-block;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Accordion Styles */
+.accordion-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.accordion-item {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.accordion-header {
+    background-color: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 1.5rem;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: background-color 0.4s ease;
+}
+
+.accordion-header:hover, .accordion-header.active {
+    background-color: var(--card-background);
+}
+
+.accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    background-color: var(--card-background);
+}
+
+.accordion-content {
+    display: flex;
+    flex-direction: column; /* Stack image and details vertically */
+    gap: 2rem;
+    /* Padding is moved to child elements */
+}
+
+.certificate-image {
+    width: 100%; /* Make image take full width of the container */
+    height: auto;
+    object-fit: cover;
+    border-radius: 0; /* Remove radius to fit flush against edges */
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Placeholder for missing images */
+.certificate-image:not([src*="/"]) {
+    background-color: var(--card-background);
+    aspect-ratio: 1 / 1; /* Maintain square shape for placeholder */
+    height: auto;
+}
+
+.certificate-details .certificate-description {
+    padding: 0 1.5rem;
+}
+
+.certificate-details h3 {
+    padding: 0 1.5rem;
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.skills-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.skills-list li {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--primary-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.skills-list li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.certificate-link {
+    /* Using the same style as project links for consistency */
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    margin: 0 1.5rem 1.5rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: inline-block;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+    #certificates {
+        padding: 4rem 1rem; /* Reduced padding for mobile */
+    }
+
     .about-content {
         flex-direction: column;
         gap: 2rem;
@@ -354,5 +487,19 @@ a:hover {
 
     .social-links {
         justify-content: center;
+    }
+
+    .accordion-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .certificate-image {
+        width: 100%; /* Use full width on mobile as well */
+        height: auto;
+    }
+
+    .certificate-details {
+        width: 100%;
     }
 }
