@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Devops User Guide</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="azure-devops-work-items-user-guide">Azure DevOps Work Items User Guide</h1>
+<p>Welcome! This guide will help you use the Azure DevOps Work Items desktop application. This app is designed to make it easy to manage your work items and tasks in Azure DevOps, all from a simple Windows program.</p>
+<hr>
+<h2 id="what-is-this-app-for">What Is This App For?</h2>
+<p>This application helps you:</p>
+<ul>
+<li>View, add, and organize your Azure DevOps work items and tasks.</li>
+<li>Track your daily work and time spent on tasks.</li>
+<li>Start and stop work on tasks, and record your progress.</li>
+<li>Link tasks to parent work items and manage relationships.</li>
+<li>Save your daily work and recent tasks for easy access.</li>
+</ul>
+<hr>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="what-you-need">What You Need</h3>
+<ul>
+<li><strong>Personal Access Token (PAT):</strong><br>
+The app uses your Azure DevOps PAT, which must be set as an environment variable named <code>AZURE_DEVOPS_PAT</code> on your computer.</li>
+<li><strong>Organization and Project:</strong><br>
+The app is pre-configured for the &quot;Windowmaker&quot; organization and project. If you need to use a different one, contact your administrator.</li>
+</ul>
+<hr>
+<h2 id="app-layout">App Layout</h2>
+<p>The main window is divided into several sections:</p>
+<ol>
+<li>
+<p><strong>Header Panel (Top Bar):</strong></p>
+<ul>
+<li><strong>Work Item ID Field:</strong> Enter the ID of a work item you want to fetch.</li>
+<li><strong>Fetch Button:</strong> Loads the work item from Azure DevOps.</li>
+<li><strong>Task Name Field:</strong> Enter a name for a new task.</li>
+<li><strong>Add Task Button:</strong> Adds a new task under the selected work item.</li>
+<li><strong>Start/Stop Task Button:</strong> Starts or stops tracking time for a selected task.</li>
+<li><strong>Current Task Label:</strong> Shows which task (if any) is currently running.</li>
+</ul>
+</li>
+<li>
+<p><strong>Work Items Grid (Top Section):</strong></p>
+<ul>
+<li>Shows a list of your main work items.</li>
+<li>Double-click a row to load its details.</li>
+</ul>
+</li>
+<li>
+<p><strong>Tasks Grid (Middle Section):</strong></p>
+<ul>
+<li>Shows tasks related to the selected work item.</li>
+<li>Right-click for more options (change state, link, remove, etc.).</li>
+</ul>
+</li>
+<li>
+<p><strong>Today's Work Grid (Bottom Section):</strong></p>
+<ul>
+<li>Displays tasks you have worked on today and the total hours.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="how-to-use-each-feature">How to Use Each Feature</h2>
+<h3 id="1-fetch-a-work-item">1. Fetch a Work Item</h3>
+<ul>
+<li><strong>Step 1:</strong> Enter the Work Item ID in the top-left field.</li>
+<li><strong>Step 2:</strong> Click the <strong>Fetch</strong> button.</li>
+<li><strong>Result:</strong> The work item appears in the Work Items grid.</li>
+</ul>
+<h3 id="2-add-a-new-task">2. Add a New Task</h3>
+<ul>
+<li><strong>Step 1:</strong> Select a work item in the Work Items grid.</li>
+<li><strong>Step 2:</strong> Enter a task name in the Task Name field.</li>
+<li><strong>Step 3:</strong> Click <strong>Add Task</strong>.</li>
+<li><strong>Result:</strong> The new task appears in the Tasks grid, linked to the selected work item.</li>
+</ul>
+<h3 id="3-start-or-stop-a-task">3. Start or Stop a Task</h3>
+<ul>
+<li><strong>Step 1:</strong> Select a task in the Tasks grid (it must be in &quot;Active&quot; state).</li>
+<li><strong>Step 2:</strong> Click <strong>Start Task</strong> to begin tracking time.</li>
+<li><strong>Step 3:</strong> When finished, click <strong>Stop Task</strong>.</li>
+<li><strong>Result:</strong> The time spent is recorded and shown in the Today's Work grid.</li>
+</ul>
+<h3 id="4-manage-tasks-right-click-menu-in-tasks-grid">4. Manage Tasks (Right-Click Menu in Tasks Grid)</h3>
+<ul>
+<li><strong>Change State:</strong> Right-click a task, choose <strong>State</strong>, and select a new state (Proposed, Active, Resolved, Closed).</li>
+<li><strong>Set Task Type:</strong> Right-click, choose <strong>Task Type</strong>, and pick from the list (e.g., Programming, Code Review).</li>
+<li><strong>Commit Time:</strong> Right-click, choose <strong>Commit Time</strong>, and select a percentage to log time spent.</li>
+<li><strong>Start Task:</strong> Right-click and select <strong>Start Task</strong> to begin tracking.</li>
+<li><strong>Remove Task:</strong> Right-click and select <strong>Remove Task</strong> to delete it from your list.</li>
+<li><strong>Remove Closed Task:</strong> Removes only tasks marked as &quot;Closed&quot;.</li>
+<li><strong>Link/Delink Task:</strong> Link a task to a parent work item or remove the link.</li>
+<li><strong>Set Current Running Task:</strong> Mark a task as the one you are currently working on.</li>
+<li><strong>Fetch Parent:</strong> Load the parent work item for the selected task.</li>
+</ul>
+<h3 id="5-manage-work-items-right-click-menu-in-work-items-grid">5. Manage Work Items (Right-Click Menu in Work Items Grid)</h3>
+<ul>
+<li><strong>Add Task:</strong> Right-click a work item, choose <strong>Add Task</strong>, and select a type to create a new task under it.</li>
+<li><strong>Add Test Case:</strong> Right-click and select <strong>Add TEST CASE</strong> to create a test case linked to the work item.</li>
+<li><strong>Remove Work Item:</strong> Right-click and select <strong>Remove Work Item</strong> to delete it from your list.</li>
+<li><strong>Fetch All Child Tasks:</strong> Right-click and select this to load all tasks under the work item.</li>
+</ul>
+<h3 id="6-edit-task-estimates">6. Edit Task Estimates</h3>
+<ul>
+<li>In the Tasks or Work Items grid, double-click the <strong>Original Estimate</strong> cell to edit the estimated hours for a task.</li>
+</ul>
+<h3 id="7-save-and-restore-work">7. Save and Restore Work</h3>
+<ul>
+<li>The app automatically saves your daily work and recent tasks.</li>
+<li>You can manually save at any time by pressing <strong>Ctrl+S</strong>.</li>
+</ul>
+<h3 id="8-clear-lists">8. Clear Lists</h3>
+<ul>
+<li><strong>Clear Tasks:</strong> Press <strong>Ctrl+Shift+C</strong> to clear the Tasks grid (confirmation required).</li>
+<li><strong>Clear Work Items:</strong> Press <strong>Ctrl+Shift+W</strong> to clear the Work Items grid (confirmation required).</li>
+</ul>
+<hr>
+<h2 id="special-notes">Special Notes</h2>
+<ul>
+<li><strong>Time Tracking:</strong> The app tracks your work time and updates Azure DevOps automatically.</li>
+<li><strong>Lunch/Out-of-Office:</strong> The app will stop your running task automatically during lunch (1:00�1:10 PM) or after 8:00 PM.</li>
+<li><strong>Window Size/Position:</strong> The app remembers its size and position between sessions.</li>
+<li><strong>Pro Features:</strong> Some time adjustment features are available only to specific users.</li>
+</ul>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><strong>PAT Not Set:</strong> If you see errors about authentication, make sure your <code>AZURE_DEVOPS_PAT</code> environment variable is set.</li>
+<li><strong>Invalid Work Item ID:</strong> If you enter an invalid ID, the app will show a warning.</li>
+<li><strong>Task Not Active:</strong> You can only start tasks that are in the &quot;Active&quot; state.</li>
+</ul>
+<hr>
+<h2 id="summary-table-of-controls">Summary Table of Controls</h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Work Item ID Field</td>
+<td>Enter ID to fetch a work item</td>
+</tr>
+<tr>
+<td>Fetch Button</td>
+<td>Load work item from Azure DevOps</td>
+</tr>
+<tr>
+<td>Task Name Field</td>
+<td>Enter name for a new task</td>
+</tr>
+<tr>
+<td>Add Task Button</td>
+<td>Add a new task under selected work item</td>
+</tr>
+<tr>
+<td>Start/Stop Task Button</td>
+<td>Start or stop tracking time for a task</td>
+</tr>
+<tr>
+<td>Work Items Grid</td>
+<td>View and select main work items</td>
+</tr>
+<tr>
+<td>Tasks Grid</td>
+<td>View, select, and manage tasks</td>
+</tr>
+<tr>
+<td>Today's Work Grid</td>
+<td>See tasks worked on today and total hours</td>
+</tr>
+<tr>
+<td>Right-Click Menus</td>
+<td>Access advanced options for tasks/work items</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="layout-description">Layout Description</h2>
+<ul>
+<li><strong>Top Bar:</strong> Controls for fetching work items and adding tasks.</li>
+<li><strong>Upper Section:</strong> List of work items (main RQ or BUG).</li>
+<li><strong>Middle Section:</strong> List of tasks related to the selected work item.</li>
+<li><strong>Lower Section:</strong> List of tasks you have worked on today, with total hours.</li>
+</ul>
+<hr>
+<p>If you have any questions or need help, please contact your administrator.</p>
+<p>Enjoy managing your work with ease!</p>
+
+</body>
+</html>
