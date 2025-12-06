@@ -357,79 +357,129 @@ a:hover {
     padding-bottom: 0.5rem;
 }
 
-/* Accordion Styles */
-.accordion-container {
-    max-width: 900px;
+/* New wrapper for flexbox layout */
+.certificates-wrapper {
+    /* This wrapper is now mainly for alignment */
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: left;
+    position: relative;
 }
 
-.accordion-item {
-    background-color: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    overflow: hidden;
+/* Certificate Slider Styles */
+.certificates-slider-container {
+    position: relative;
+    max-width: 1100px; /* Adjusted to make space for buttons */
+    margin: 0 auto;
 }
 
-.accordion-header {
-    background-color: transparent;
-    color: var(--primary-color);
-    cursor: pointer;
-    padding: 1.5rem;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-    transition: background-color 0.4s ease;
+.certificates-slider {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem 4rem; /* Add padding to make space for absolute buttons on mobile */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
 }
 
-.accordion-header:hover, .accordion-header.active {
+.certificates-slider::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
+
+.certificate-card {
+    flex: 0 0 clamp(250px, 22vw, 280px); /* Use clamp for fluid width */
     background-color: var(--card-background);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    scroll-snap-align: start;
 }
 
-.accordion-panel {
+.certificate-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.card-title {
+    padding: 1rem;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.card-hidden-details {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-in-out;
-    background-color: var(--card-background);
-}
-
-.accordion-content {
-    display: flex;
-    flex-direction: column; /* Stack image and details vertically */
-    gap: 2rem;
-    /* Padding is moved to child elements */
-}
-
-.certificate-image {
-    width: 100%; /* Make image take full width of the container */
-    height: auto;
-    object-fit: cover;
-    border-radius: 0; /* Remove radius to fit flush against edges */
-    border-left: none;
-    border-right: none;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-}
-
-/* Placeholder for missing images */
-.certificate-image:not([src*="/"]) {
-    background-color: var(--card-background);
-    aspect-ratio: 1 / 1; /* Maintain square shape for placeholder */
-    height: auto;
-}
-
-.certificate-details .certificate-description {
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
     padding: 0 1.5rem;
 }
 
-.certificate-details h3 {
-    padding: 0 1.5rem;
+.certificate-card.expanded {
+    flex: 0 0 clamp(320px, 90vw, 450px); /* Responsive expanded width */
+}
+
+.certificate-card.expanded .card-image {
+    height: auto; /* Allow image to resize proportionally */
+    max-width: 100%;
+}
+
+.certificate-card.expanded .card-hidden-details {
+    max-height: 400px; /* Set a max-height for the details */
+    padding: 0 1.5rem 1.5rem;
+    overflow-y: auto; /* Add scroll for content that overflows */
+}
+
+.card-hidden-details p {
+    font-size: 0.9rem;
+    max-width: 100%;
+}
+
+.card-hidden-details h3 {
     margin-top: 0;
     color: var(--primary-color);
+}
+
+.slider-nav {
+    position: absolute; /* Positioned relative to the slider */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    color: var(--primary-color);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    cursor: pointer;    
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.slider-nav:hover {
+    background-color: var(--card-background);
+    border-color: var(--primary-color);
+}
+
+.slider-nav.prev {
+    left: 0;
+}
+
+.slider-nav.next {
+    right: 0;
 }
 
 .skills-list {
@@ -438,7 +488,6 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    padding: 0 1.5rem;
     margin-bottom: 1.5rem;
 }
 
@@ -464,8 +513,8 @@ a:hover {
     font-weight: 600;
     text-decoration: none;
     padding: 0.75rem 1.5rem;
-    border-radius: 50px;
-    margin: 0 1.5rem 1.5rem;
+    border-radius: 50px;    
+    margin-bottom: 1.5rem;
     transition: transform 0.3s ease, background-color 0.3s ease;
     display: inline-block;
 }
@@ -489,17 +538,31 @@ a:hover {
         justify-content: center;
     }
 
-    .accordion-content {
-        flex-direction: column;
-        text-align: center;
+    .certificates-slider {
+        padding: 1rem 50px; /* Add horizontal padding to prevent cards from hiding under buttons */
     }
 
-    .certificate-image {
-        width: 100%; /* Use full width on mobile as well */
-        height: auto;
+    .slider-nav {
+        /* Make buttons smaller and slightly transparent for a better mobile look */
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        background-color: var(--glass-background);
     }
 
-    .certificate-details {
-        width: 100%;
+    .slider-nav.prev {
+        left: 5px; /* Position button inside the slider padding */
+    }
+
+    .slider-nav.next {
+        right: 5px; /* Position button inside the slider padding */
+    }
+
+    .certificate-card {
+        flex: 0 0 70vw; /* Use viewport width for better mobile experience */
+    }
+
+    .certificate-card.expanded {
+        flex: 0 0 90vw; /* Let expanded card take most of the screen width */
     }
 }
